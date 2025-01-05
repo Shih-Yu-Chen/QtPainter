@@ -45,6 +45,7 @@ private slots:
     void loadImage();
     void toggleEraser();
 
+
 private:
     void createUI();
     void setupNetwork();
@@ -56,6 +57,7 @@ private:
 
     void scaleCanvasToFit(); // Scale the canvas to fit the window size
     void sendLoadedImage();
+
     QPoint mapToCanvas(const QPoint &windowPoint); // Map window coordinates to canvas coordinates
     QTcpServer *server;
     QTcpSocket *clientSocket;
@@ -64,16 +66,21 @@ private:
     QImage canvas;
     bool isDrawing;
     QPoint lastPoint;
+    QPoint serverLastPoint;
+    QPoint clientLastPoint;
     QColor currentColor;
     QColor previousColor;
     int penWidth;
     bool isEraser;
+    QVector<QPoint> drawingPoints;
+    bool isNewStroke;
 
     QByteArray buffer;  // 用於存儲未完成的數據
 
     QByteArray receivedImageData;  // 用於存儲接收的圖片數據
     int expectedImageSize;         // 期望接收的圖片大小
     static const int CHUNK_SIZE = 32768;  // 32KB 的分塊大小
+
 };
 
 #endif // MAINWINDOW_H
